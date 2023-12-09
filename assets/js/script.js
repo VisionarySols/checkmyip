@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add more elements here for additional information
 
         // Update the elements with the data
-        ipElement.textContent = data.query;
-        regionElement.textContent = data.regionName;
+        ipElement.textContent = data.ip;
+        regionElement.textContent = data.region_name;
         cityElement.textContent = data.city;
-        countryElement.textContent = data.country;
+        countryElement.textContent = data.country_name;
         ispElement.textContent = data.isp;
         hostElement.textContent = data.host;
     }
@@ -37,27 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
     // Function to fetch IP data from the API and update the page
     function fetchIPDataAndDisplay() {
-        fetch("http://ip-api.com/json")
+        fetch("https://api.ipbase.com/v1/json", {
+            referrerPolicy: "unsafe-url"
+        })// Use "http" here
             .then((response) => response.json())
             .then((data) => {
                 // Call the function to update the page with the retrieved JSON data
                 updatePageWithIPData(data);
                 // Call the initMap function when the page loads
-                // google.maps.event.addDomListener(window, 'load', initMap(data));
+                //                google.maps.event.addDomListener(window, 'load', initMap(data));
             })
             .catch((error) => {
                 console.error("Failed to fetch IP data: " + error);
             });
-
-
-
     }
 
     // Fetch IP data and update the page
     fetchIPDataAndDisplay();
-
-
 });
